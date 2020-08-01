@@ -1,6 +1,6 @@
-package br.com.colaboradoresapi.persistence.repositories;
+package br.com.colaboradoresapi.persistence.repository;
 
-import br.com.colaboradoresapi.persistence.entities.Colaborador;
+import br.com.colaboradoresapi.persistence.entity.Colaborador;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;

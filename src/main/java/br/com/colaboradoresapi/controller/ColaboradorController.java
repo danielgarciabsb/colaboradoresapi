@@ -1,8 +1,8 @@
-package br.com.colaboradoresapi.controllers;
+package br.com.colaboradoresapi.controller;
 
 import br.com.colaboradoresapi.dto.ResponseDTO;
-import br.com.colaboradoresapi.persistence.entities.Colaborador;
-import br.com.colaboradoresapi.services.ColaboradorService;
+import br.com.colaboradoresapi.persistence.entity.Colaborador;
+import br.com.colaboradoresapi.service.ColaboradorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

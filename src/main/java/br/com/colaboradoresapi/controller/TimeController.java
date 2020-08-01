@@ -1,8 +1,8 @@
-package br.com.colaboradoresapi.controllers;
+package br.com.colaboradoresapi.controller;
 
 import br.com.colaboradoresapi.dto.ResponseDTO;
-import br.com.colaboradoresapi.persistence.entities.Time;
-import br.com.colaboradoresapi.services.TimeService;
+import br.com.colaboradoresapi.persistence.entity.Time;
+import br.com.colaboradoresapi.service.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

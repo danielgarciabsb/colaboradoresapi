@@ -1,9 +1,9 @@
-package br.com.colaboradoresapi.services;
+package br.com.colaboradoresapi.service;
 
-import br.com.colaboradoresapi.components.MessageComponent;
+import br.com.colaboradoresapi.component.MessageComponent;
 import br.com.colaboradoresapi.dto.ResponseDTO;
-import br.com.colaboradoresapi.persistence.entities.Competencia;
-import br.com.colaboradoresapi.persistence.repositories.CompetenciaRepository;
+import br.com.colaboradoresapi.persistence.entity.Competencia;
+import br.com.colaboradoresapi.persistence.repository.CompetenciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

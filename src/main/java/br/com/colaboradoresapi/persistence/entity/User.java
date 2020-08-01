@@ -1,4 +1,4 @@
-package br.com.colaboradoresapi.persistence.entities;
+package br.com.colaboradoresapi.persistence.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,8 +1,8 @@
-package br.com.colaboradoresapi.controllers;
+package br.com.colaboradoresapi.controller;
 
 import br.com.colaboradoresapi.dto.ResponseDTO;
-import br.com.colaboradoresapi.persistence.entities.Competencia;
-import br.com.colaboradoresapi.services.CompetenciaService;
+import br.com.colaboradoresapi.persistence.entity.Competencia;
+import br.com.colaboradoresapi.service.CompetenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

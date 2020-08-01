@@ -1,4 +1,4 @@
-package br.com.colaboradoresapi.persistence.entities;
+package br.com.colaboradoresapi.persistence.entity;
 
 import lombok.Data;
 
@@ -30,9 +30,9 @@ public class Colaborador {
     @ManyToMany(cascade = {CascadeType.MERGE})
     private List<Competencia> competencias;
 
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Experiencia> experiencias;
 
-    @OneToMany(cascade = {CascadeType.MERGE})
+    @OneToMany(cascade = {CascadeType.PERSIST})
     private List<Contato> contatos;
 }

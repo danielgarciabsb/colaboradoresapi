@@ -1,4 +1,4 @@
-package br.com.colaboradoresapi.components;
+package br.com.colaboradoresapi.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

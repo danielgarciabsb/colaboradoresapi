@@ -1,4 +1,4 @@
-package br.com.colaboradoresapi.persistence.entities;
+package br.com.colaboradoresapi.persistence.entity;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Cargo {
+public class Competencia {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

@@ -1,16 +1,13 @@
-package br.com.colaboradoresapi.services;
+package br.com.colaboradoresapi.service;
 
-import br.com.colaboradoresapi.components.MessageComponent;
+import br.com.colaboradoresapi.component.MessageComponent;
 import br.com.colaboradoresapi.domain.SearchType;
 import br.com.colaboradoresapi.dto.ResponseDTO;
-import br.com.colaboradoresapi.persistence.entities.Cargo;
-import br.com.colaboradoresapi.persistence.entities.Colaborador;
-import br.com.colaboradoresapi.persistence.entities.Competencia;
-import br.com.colaboradoresapi.persistence.entities.Time;
-import br.com.colaboradoresapi.persistence.repositories.CargoRepository;
-import br.com.colaboradoresapi.persistence.repositories.CompetenciaRepository;
-import br.com.colaboradoresapi.persistence.repositories.PageableColaboradorRepository;
-import br.com.colaboradoresapi.persistence.repositories.TimeRepository;
+import br.com.colaboradoresapi.persistence.entity.*;
+import br.com.colaboradoresapi.persistence.repository.CargoRepository;
+import br.com.colaboradoresapi.persistence.repository.CompetenciaRepository;
+import br.com.colaboradoresapi.persistence.repository.PageableColaboradorRepository;
+import br.com.colaboradoresapi.persistence.repository.TimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -74,6 +71,15 @@ public class ColaboradorService {
                 competenciaRepository.save(competencia);
             } else {
                 competencia.setId(competenciaRepo.getId());
+            }
+        });
+
+        colaborador.getExperiencias().forEach(experiencia -> {
+            final Cargo cargoExpRepo = cargoRepository.findByName(experiencia.getCargo().getName());
+            if(cargoExpRepo == null) {
+                cargoRepository.save(experiencia.getCargo());
+            } else {
+                experiencia.getCargo().setId(cargoExpRepo.getId());
             }
         });
 
