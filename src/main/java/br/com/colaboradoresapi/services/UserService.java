@@ -2,10 +2,13 @@ package br.com.colaboradoresapi.services;
 
 import br.com.colaboradoresapi.components.MessageComponent;
 import br.com.colaboradoresapi.dto.ResponseDTO;
+import br.com.colaboradoresapi.persistence.entities.Competencia;
 import br.com.colaboradoresapi.persistence.entities.User;
 import br.com.colaboradoresapi.persistence.repositories.UserCrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.StreamSupport;
 
 @Service
 public class UserService {
@@ -22,15 +25,24 @@ public class UserService {
 
     public ResponseDTO<User> addNewUser(User user) {
         return ResponseDTO.<User> builder()
-                .status(messages.get(MessageComponent.Type.SALVO_SUCESSO))
-                .data(userRepository.save(user))
-                .build();
+            .status(messages.get(MessageComponent.Type.SALVO_SUCESSO, new String[]{User.class.getSimpleName()}))
+            .data(userRepository.save(user))
+            .build();
     }
 
     public ResponseDTO<Iterable<User>> getAllUsers() {
+        Iterable<User> users = userRepository.findAll();
         return ResponseDTO.<Iterable<User>> builder()
-                .status(messages.get(MessageComponent.Type.SALVO_SUCESSO))
-                .data(userRepository.findAll())
-                .build();
+            .status(
+                messages.get(
+                    MessageComponent.Type.SALVOS_SUCESSO,
+                    new String[]{
+                        String.valueOf(StreamSupport.stream(users.spliterator(), false).count()),
+                        Competencia.class.getSimpleName()
+                    }
+                )
+            )
+            .data(users)
+            .build();
     }
 }

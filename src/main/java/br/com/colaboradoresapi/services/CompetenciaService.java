@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 @Service
 public class CompetenciaService {
@@ -23,23 +24,46 @@ public class CompetenciaService {
     }
 
     public ResponseDTO<Iterable<Competencia>> getAllCompetencias() {
+        Iterable<Competencia> competencias = competenciaRepository.findAll();
         return ResponseDTO.<Iterable<Competencia>> builder()
-                .status(messages.get(MessageComponent.Type.SALVO_SUCESSO))
-                .data(competenciaRepository.findAll())
-                .build();
+            .status(
+                messages.get(
+                    MessageComponent.Type.OBTIDOS_SUCESSO,
+                    new String[]{
+                        String.valueOf(StreamSupport.stream(competencias.spliterator(), false).count()),
+                        Competencia.class.getSimpleName()
+                    }
+                )
+            )
+            .data(competenciaRepository.findAll())
+            .build();
     }
 
-    public ResponseDTO<Competencia> addNewCompetencia(Competencia competencia) {
+    public ResponseDTO<Competencia> addNewCompetencia(final Competencia competencia) {
         return ResponseDTO.<Competencia> builder()
-                .status(messages.get(MessageComponent.Type.SALVO_SUCESSO))
-                .data(competenciaRepository.save(competencia))
-                .build();
+            .status(
+                messages.get(
+                    MessageComponent.Type.SALVO_SUCESSO,
+                    new String[]{Competencia.class.getSimpleName()}
+                )
+            )
+            .data(competenciaRepository.save(competencia))
+            .build();
     }
 
-    public ResponseDTO<Iterable<Competencia>> addCompetenciaList(List<Competencia> competencias) {
+    public ResponseDTO<Iterable<Competencia>> addCompetenciaList(final List<Competencia> competencias) {
+        Iterable<Competencia> competenciasSaved = competenciaRepository.saveAll(competencias);
         return ResponseDTO.<Iterable<Competencia>> builder()
-                .status(messages.get(MessageComponent.Type.SALVO_SUCESSO))
-                .data(competenciaRepository.saveAll(competencias))
-                .build();
+            .status(
+                messages.get(
+                    MessageComponent.Type.SALVOS_SUCESSO,
+                    new String[]{
+                        String.valueOf(StreamSupport.stream(competenciasSaved.spliterator(), false).count()),
+                        Competencia.class.getSimpleName()
+                    }
+                )
+            )
+            .data(competenciasSaved)
+            .build();
     }
 }

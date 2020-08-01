@@ -1,6 +1,7 @@
 package br.com.colaboradoresapi.services;
 
 import br.com.colaboradoresapi.components.MessageComponent;
+import br.com.colaboradoresapi.domain.SearchType;
 import br.com.colaboradoresapi.dto.ResponseDTO;
 import br.com.colaboradoresapi.persistence.entities.Cargo;
 import br.com.colaboradoresapi.persistence.entities.Colaborador;
@@ -39,23 +40,28 @@ public class ColaboradorService {
         this.competenciaRepository = competenciaRepository;
     }
 
-    public ResponseDTO<Optional<Colaborador>> getColaboradorById(Integer id) {
+    public ResponseDTO<Optional<Colaborador>> getColaboradorById(final Integer id) {
         return ResponseDTO.<Optional<Colaborador>> builder()
-                .status(messages.get(MessageComponent.Type.OBTIDO_SUCESSO, new String[]{Colaborador.class.getSimpleName()}))
-                .data(pageableColaboradorRepository.findById(id))
-                .build();
+            .status(
+                messages.get(
+                    MessageComponent.Type.OBTIDO_SUCESSO,
+                    new String[]{Colaborador.class.getSimpleName()}
+                )
+            )
+            .data(pageableColaboradorRepository.findById(id))
+            .build();
     }
 
-    public ResponseDTO<Colaborador> addNewColaborador(Colaborador colaborador) {
+    public ResponseDTO<Colaborador> addNewColaborador(final Colaborador colaborador) {
 
-        Cargo cargoRepo = cargoRepository.findByName(colaborador.getCargo().getName());
+        final Cargo cargoRepo = cargoRepository.findByName(colaborador.getCargo().getName());
         if(cargoRepo == null) {
             cargoRepository.save(colaborador.getCargo());
         } else {
             colaborador.getCargo().setId(cargoRepo.getId());
         }
 
-        Time timeRepo = timeRepository.findByName(colaborador.getTime().getName());
+        final Time timeRepo = timeRepository.findByName(colaborador.getTime().getName());
         if(timeRepo == null) {
             timeRepository.save(colaborador.getTime());
         } else {
@@ -63,48 +69,52 @@ public class ColaboradorService {
         }
 
         colaborador.getCompetencias().forEach(competencia -> {
-            Competencia competenciaRepo = competenciaRepository.findByName(competencia.getName());
+            final Competencia competenciaRepo = competenciaRepository.findByName(competencia.getName());
             if(competenciaRepo == null) {
                 competenciaRepository.save(competencia);
             } else {
                 competencia.setId(competenciaRepo.getId());
             }
         });
+
         return ResponseDTO.<Colaborador> builder()
-                .status(
-                    messages.get(
-                        MessageComponent.Type.SALVO_SUCESSO,
-                        new String[]{Colaborador.class.getSimpleName()}
-                    )
+            .status(
+                messages.get(
+                    MessageComponent.Type.SALVO_SUCESSO,
+                    new String[]{Colaborador.class.getSimpleName()}
                 )
-                .data(pageableColaboradorRepository.save(colaborador))
-                .build();
+            )
+            .data(pageableColaboradorRepository.save(colaborador))
+            .build();
     }
 
-    public ResponseDTO<Iterable<Colaborador>> getAllColaboradores(Pageable pageable) {
-        Page<Colaborador> colaboradores = pageableColaboradorRepository.findAll(pageable);
+    public ResponseDTO<Iterable<Colaborador>> getAllColaboradores(final Pageable pageable) {
+        final Page<Colaborador> colaboradores = pageableColaboradorRepository.findAll(pageable);
         return ResponseDTO.<Iterable<Colaborador>> builder()
-                .status(messages.get(
-                    MessageComponent.Type.OBTIDOS_SUCESSO,
-                    new String[]{
-                        String.valueOf(colaboradores.getSize()),
-                        Colaborador.class.getSimpleName()
-                    })
-                )
-                .data(colaboradores)
-                .build();
+            .status(messages.get(
+                MessageComponent.Type.OBTIDOS_SUCESSO,
+                new String[]{
+                    String.valueOf(colaboradores.getSize()),
+                    Colaborador.class.getSimpleName()
+                })
+            )
+            .data(colaboradores)
+            .build();
     }
 
-    public ResponseDTO<Page<Colaborador>> findColaboradorBy(String name, String searchType, Pageable pageable) {
+    public ResponseDTO<Page<Colaborador>> findColaboradorBy(
+            final String name, final String searchType, final Pageable pageable) {
+
         Page<Colaborador> colaboradores;
+
         switch (searchType) {
-            case "Cargo":
+            case SearchType.Colaborador.CARGO:
                 colaboradores = pageableColaboradorRepository.findByCargoNameContaining(name, pageable);
                 break;
-            case "Competência":
+            case SearchType.Colaborador.COMPETENCIA:
                 colaboradores = pageableColaboradorRepository.findByCompetenciasNameContaining(name, pageable);
                 break;
-            case "Time":
+            case SearchType.Colaborador.TIME:
                 colaboradores = pageableColaboradorRepository.findByTimeNameContaining(name, pageable);
                 break;
             default:
