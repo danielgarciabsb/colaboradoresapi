@@ -1,6 +1,6 @@
 package br.com.colaboradoresapi.services;
 
-import br.com.colaboradoresapi.components.Message;
+import br.com.colaboradoresapi.components.MessageComponent;
 import br.com.colaboradoresapi.dto.ResponseDTO;
 import br.com.colaboradoresapi.persistence.entities.Competencia;
 import br.com.colaboradoresapi.persistence.repositories.CompetenciaRepository;
@@ -12,11 +12,11 @@ import java.util.List;
 @Service
 public class CompetenciaService {
 
-    private final Message messages;
+    private final MessageComponent messages;
     private final CompetenciaRepository competenciaRepository;
 
     @Autowired
-    public CompetenciaService(Message messages,
+    public CompetenciaService(MessageComponent messages,
                               CompetenciaRepository competenciaRepository) {
         this.messages = messages;
         this.competenciaRepository = competenciaRepository;
@@ -24,21 +24,21 @@ public class CompetenciaService {
 
     public ResponseDTO<Iterable<Competencia>> getAllCompetencias() {
         return ResponseDTO.<Iterable<Competencia>> builder()
-                .status(messages.get(Message.Type.SUCESSO))
+                .status(messages.get(MessageComponent.Type.SALVO_SUCESSO))
                 .data(competenciaRepository.findAll())
                 .build();
     }
 
     public ResponseDTO<Competencia> addNewCompetencia(Competencia competencia) {
         return ResponseDTO.<Competencia> builder()
-                .status(messages.get(Message.Type.SUCESSO))
+                .status(messages.get(MessageComponent.Type.SALVO_SUCESSO))
                 .data(competenciaRepository.save(competencia))
                 .build();
     }
 
     public ResponseDTO<Iterable<Competencia>> addCompetenciaList(List<Competencia> competencias) {
         return ResponseDTO.<Iterable<Competencia>> builder()
-                .status(messages.get(Message.Type.SUCESSO))
+                .status(messages.get(MessageComponent.Type.SALVO_SUCESSO))
                 .data(competenciaRepository.saveAll(competencias))
                 .build();
     }
