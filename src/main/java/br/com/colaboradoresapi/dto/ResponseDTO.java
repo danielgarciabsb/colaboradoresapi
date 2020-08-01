@@ -11,5 +11,5 @@ public class ResponseDTO<T> {
 
     private String status;
 
-    private T object;
+    private T data;
 }

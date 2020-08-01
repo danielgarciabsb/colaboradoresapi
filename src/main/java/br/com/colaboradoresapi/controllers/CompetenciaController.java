@@ -1,7 +1,7 @@
 package br.com.colaboradoresapi.controllers;
 
-import br.com.colaboradoresapi.persistence.entities.Competencia;
 import br.com.colaboradoresapi.dto.ResponseDTO;
+import br.com.colaboradoresapi.persistence.entities.Competencia;
 import br.com.colaboradoresapi.services.CompetenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,21 +24,19 @@ public class CompetenciaController {
 
     @GetMapping(path="/list")
     public @ResponseBody
-    Iterable<Competencia> getAllCompetencias() {
+    ResponseDTO<Iterable<Competencia>> getAllCompetencias() {
         return competenciaService.getAllCompetencias();
     }
 
     @PostMapping(path="/add")
     public @ResponseBody
     ResponseDTO<Competencia> addNewCompetencia(@RequestBody Competencia competencia) {
-        Competencia competenciaResponse = competenciaService.addNewCompetencia(competencia);
-        return new ResponseDTO<>("Competência salva com sucesso!", competenciaResponse);
+        return competenciaService.addNewCompetencia(competencia);
     }
 
     @PostMapping(path="/addall")
     public @ResponseBody
     ResponseDTO<Iterable<Competencia>> addCompetenciaList (@RequestBody List<Competencia> competencias) {
-        Iterable<Competencia> competenciasResponse = competenciaService.addCompetenciaList(competencias);
-        return new ResponseDTO<>("Competências salvas com sucesso!", competenciasResponse);
+        return competenciaService.addCompetenciaList(competencias);
     }
 }
