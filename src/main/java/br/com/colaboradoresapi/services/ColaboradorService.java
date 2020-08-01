@@ -8,7 +8,6 @@ import br.com.colaboradoresapi.persistence.repositories.CargoRepository;
 import br.com.colaboradoresapi.persistence.repositories.CompetenciaRepository;
 import br.com.colaboradoresapi.persistence.repositories.PageableColaboradorRepository;
 import br.com.colaboradoresapi.persistence.repositories.TimeRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

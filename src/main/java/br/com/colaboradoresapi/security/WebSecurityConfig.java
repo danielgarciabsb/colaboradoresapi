@@ -14,28 +14,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/home").permitAll()
-                .antMatchers("/user")
-                .access("hasRole('ROLE_ADMIN')")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .and()
-                .addFilterBefore(new JwtLoginFilter("/login", authenticationManager()),
-                        UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new JwtAuthenticationFilter(),
-                        UsernamePasswordAuthenticationFilter.class);
+        httpSecurity
+            .csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/login").permitAll()
+            .antMatchers("/user")
+            .access("hasRole('ROLE_ADMIN')")
+            .anyRequest().authenticated()
+            .and()
+            .addFilterBefore(new JwtLoginFilter("/login", authenticationManager()),
+                    UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(new JwtAuthenticationFilter(),
+                    UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser("admin")
-                .password("password")
-                .roles("ADMIN");
+            .passwordEncoder(NoOpPasswordEncoder.getInstance())
+            .withUser("admin")
+            .password("password")
+            .roles("ADMIN");
     }
 }
