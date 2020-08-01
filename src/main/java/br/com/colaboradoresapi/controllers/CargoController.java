@@ -1,7 +1,7 @@
 package br.com.colaboradoresapi.controllers;
 
 import br.com.colaboradoresapi.persistence.entities.Cargo;
-import br.com.colaboradoresapi.persistence.models.Response;
+import br.com.colaboradoresapi.dto.ResponseDTO;
 import br.com.colaboradoresapi.services.CargoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +28,8 @@ public class CargoController {
 
     @PostMapping(path = "/add")
     public @ResponseBody
-    Response<Cargo> addNewCargo(@RequestBody Cargo cargo) {
+    ResponseDTO<Cargo> addNewCargo(@RequestBody Cargo cargo) {
         Cargo cargoResponse = cargoService.addNewCargo(cargo);
-        return new Response<>("Cargo salvo com sucesso!", cargoResponse);
+        return new ResponseDTO<>("Cargo salvo com sucesso!", cargoResponse);
     }
 }

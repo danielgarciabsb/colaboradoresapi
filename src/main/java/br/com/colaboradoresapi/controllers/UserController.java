@@ -1,7 +1,7 @@
 package br.com.colaboradoresapi.controllers;
 
 import br.com.colaboradoresapi.persistence.entities.User;
-import br.com.colaboradoresapi.persistence.models.Response;
+import br.com.colaboradoresapi.dto.ResponseDTO;
 import br.com.colaboradoresapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +22,9 @@ public class UserController {
 
     @PostMapping(path="/add")
     public @ResponseBody
-    Response<User> addNewUser (@RequestBody User user) {
+    ResponseDTO<User> addNewUser (@RequestBody User user) {
         User userResponse = userService.addNewUser(user);
-        return new Response<>("Usuario salvo com sucesso!", userResponse);
+        return new ResponseDTO<>("Usuario salvo com sucesso!", userResponse);
     }
 
     @GetMapping(path="/list")

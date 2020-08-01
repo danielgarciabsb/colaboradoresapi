@@ -1,7 +1,7 @@
 package br.com.colaboradoresapi.controllers;
 
 import br.com.colaboradoresapi.persistence.entities.Colaborador;
-import br.com.colaboradoresapi.persistence.models.Response;
+import br.com.colaboradoresapi.dto.ResponseDTO;
 import br.com.colaboradoresapi.services.ColaboradorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -31,9 +31,9 @@ public class ColaboradorController {
 
     @PostMapping(path="/add")
     public @ResponseBody
-    Response<Colaborador> addNewColaborador(@RequestBody Colaborador colaborador) {
+    ResponseDTO<Colaborador> addNewColaborador(@RequestBody Colaborador colaborador) {
         Colaborador colaboradorResponse = colaboradorService.addNewColaborador(colaborador);
-        return new Response<>("Colaborador salvo com sucesso!", colaboradorResponse);
+        return new ResponseDTO<>("Colaborador salvo com sucesso!", colaboradorResponse);
     }
 
     @GetMapping(path="/list", params = {"page", "size"})

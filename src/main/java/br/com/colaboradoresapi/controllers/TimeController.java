@@ -1,7 +1,7 @@
 package br.com.colaboradoresapi.controllers;
 
 import br.com.colaboradoresapi.persistence.entities.Time;
-import br.com.colaboradoresapi.persistence.models.Response;
+import br.com.colaboradoresapi.dto.ResponseDTO;
 import br.com.colaboradoresapi.services.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +28,8 @@ public class TimeController {
 
     @PostMapping(path = "/add")
     public @ResponseBody
-    Response<Time> addNewTime(@RequestBody Time time) {
+    ResponseDTO<Time> addNewTime(@RequestBody Time time) {
         Time timeResponse = timeService.addNewTime(time);
-        return new Response<>("Time salvo com sucesso!", timeResponse);
+        return new ResponseDTO<>("Time salvo com sucesso!", timeResponse);
     }
 }
